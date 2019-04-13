@@ -1,34 +1,31 @@
-pragma solidity ^0.5.0;
+pragma solidity >=0.5.1;
 
 contract Storage {
-  bytes32 hash = keccak256("score");
-
-  mapping(bytes32 => uint) uintStorage;
-
-  function setScore(uint _score) external {
-    uintStorage[hash] = _score;
-  }
-
-  function getScore() external view returns (uint) {
-    return uintStorage[hash];
-  }
-
+    mapping(bytes32 => uint) uints;
+    
+    function setUint(bytes32 _key, uint256 _value) external {
+        uints[_key] = _value;
+    }
+    
+    function getUint(bytes32 _key) public view returns (uint) {
+        return uints[_key];
+    }
 }
+
 
 contract Score {
-    Storage storageInstance;
-
-    constructor(address _storageAddress) public {
-      storageInstance = Storage(_storageAddress);
+    Storage sInstance;
+    bytes32 constant SCORE_KEY = keccak256('score');
+    
+    constructor (address _sAddress) public {
+        sInstance = Storage(_sAddress);
     }
-
-    function setScore(uint _score) public {
-      storageInstance.setScore(_score);
+ 
+    function setScore(uint256 _score) external {
+        sInstance.setUint(SCORE_KEY, _score);
     }
-
+    
     function getScore() public view returns (uint) {
-        return storageInstance.getScore();
+        return sInstance.getUint(SCORE_KEY);
     }
 }
-
-
