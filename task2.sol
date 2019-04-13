@@ -23,6 +23,10 @@ contract Score {
     function getScore() public view returns (uint) {
         return ssInstance.score();
     }
+    
+    function disable() external {
+        ssInstance = ScoreStorage(address(0));
+    }
 }
 
 contract ScoreV2 {
