@@ -1,7 +1,6 @@
 pragma solidity >=0.5.1;
 
 
-// handle access control/permission
 contract ProxyStorage {
     address public implementation;
 }
@@ -10,7 +9,6 @@ contract ProxyStorage {
 contract Proxy is ProxyStorage {
 
     constructor(address _impl) public {
-        // check that its valid before setting the address
         implementation = _impl;
     }
 
@@ -18,9 +16,8 @@ contract Proxy is ProxyStorage {
         implementation = _impl;
     }
 
-    function () public {
+    function () external {
         address localImpl = implementation;
-         //solium-disable-next-line security/no-inline-assembly
         assembly {
             let ptr := mload(0x40)
             calldatacopy(ptr, 0, calldatasize)
