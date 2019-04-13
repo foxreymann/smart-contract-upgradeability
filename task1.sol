@@ -1,27 +1,27 @@
-pragma solidity ^0.5.0;
+pragma solidity >=0.5.1;
+
 
 contract Score {
+    uint256 public score;
 
-    uint public score;
-
-    function setScore(uint _score) public {
-      score = _score;
+    function setScore(uint256 _score) external {
+        score  = _score;
     }
-
+    
     function getScore() public view returns (uint) {
         return score;
     }
 }
 
+
 contract ScoreV2 {
+    uint256 public score;
 
-    uint public score;
-
-    function setScore(uint _score) public {
-      score = _score + 1;
+    function setScore(uint256 _score) external {
+        score  = _score + 1;
     }
-
-    function getScore() public view returns (uint) {
+    
+     function getScore() public view returns (uint) {
         return score;
     }
 }
